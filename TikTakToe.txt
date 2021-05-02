@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<Windows.h>
 #include<iomanip>
@@ -13,20 +14,45 @@ void View_Board()
 	cout << "|-" << board[3] << "-|-" << board[4] << "-|-" << board[5] << "-|" << endl;
 	cout << "|-" << board[0] << "-|-" << board[1] << "-|-" << board[2] << "-|" << endl;
 }
+bool has_won(char player)
+{
+	int wins[][3] = { {0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6} };
+	for (int i = 0; i < 8; i++)
+	{
+		int count = 0;//для підрахунку виграшних елементів
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[wins[i][j]] == player)
+			{
+				count++;
+			}
+			if (count == 3)
+			{
+
+				return true;
+			}
+
+		}
+	}
+	return false;
+
+}
 void Navigator()
 {
 	cout << "Navigator" << endl;
-	cout << "|-6-|-7-|-8-|" << endl;
-	cout << "|-3-|-4-|-5-|" << endl;
-	cout << "|-0-|-1-|-2-|" << endl;
+	cout << "|-7-|-8-|-9-|" << endl;
+	cout << "|-4-|-5-|-6-|" << endl;
+	cout << "|-1-|-2-|-3-|" << endl;
 }
 
 int get_move()//введення числа та перевірка чи воно правильне
 {
 	system("cls");
+	menu();
 	Navigator();
 	View_Board();
 	int move;
+	cout << "Make move,please!!!" << endl;
 	cin >> move;
 	while (move > 9 || move < 1 || board[move - 1] != '-') //перевірка введеного числа
 	{
@@ -35,25 +61,37 @@ int get_move()//введення числа та перевірка чи вон�
 	}
 	return move;
 }
-void play()//игра
+char play()//игра
 {
-	
-	for (int i = 0; i < 5; i++)
+	int turn = 0;
+	while (!has_won('X') || !has_won('O') || turn < 9)
 	{
 		int move = get_move();
-		get_move();
-		if (i % 2 == 0)
+		if (turn % 2 == 0)
 		{
 			board[move - 1] = 'X';
-
+			if (has_won('X'))
+			{
+				cout << "Congratulation player X! You have won" << endl;
+				return 'X';
+			}
 		}
 		else
 		{
 			board[move - 1] = 'O';
+			if (has_won('O'))
+			{
+				cout << "Congratulation player O! You have won" << endl;
+				return 'O';
+			}
 
 		}
+		turn++;
 	}
-		
+	cout << "Draw" << endl;
+	return 'D';
+
+
 }
 
 
@@ -66,10 +104,10 @@ void main()
 
 void SetColor(int color)
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),color);
 }
 void menu()
-{ 
+{
 
 	SetColor(3); cout << "\t\t\t\t" << char(201);
 	for (int i = 0; i < 40; i++)
@@ -82,7 +120,7 @@ void menu()
 	cout << "\t\t\t\t" << char(186);
 	SetColor(10); cout << "\t         TikTak\t\t\t ";
 	SetColor(3);
-	cout<< char(186) << endl;
+	cout << char(186) << endl;
 	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
 	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
 	cout << "\t\t\t\t" << char(200);
@@ -90,6 +128,6 @@ void menu()
 	{
 		cout << char(205);
 	}
-	cout << char(188) << endl;
-	SetColor(10);
+	cout << char(188) ;
+	SetColor(10); cout << endl;
 }
