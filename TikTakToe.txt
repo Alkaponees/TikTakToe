@@ -3,18 +3,10 @@
 #include<iomanip>
 #include<time.h>
 using namespace std;
-char board[9] = {};
+char board[9] = { '-','-', '-', '-', '-', '-', '-', '-', '-' };//массив поля
 void menu();
 void SetColor(int color);
-void Create_board(char board[])
-{
-	for (int i = 0; i < 9; i++)
-	{
-		board[i] = '-';
-	}
-	
-}
-void View_Board(char board[])
+void View_Board()
 {
 	cout << "Game Desk" << endl;
 	cout << "|-" << board[6] << "-|-" << board[7] << "-|-" << board[8] << "-|" << endl;
@@ -29,20 +21,53 @@ void Navigator()
 	cout << "|-0-|-1-|-2-|" << endl;
 }
 
-void main()
+int get_move()//введення числа та перевірка чи воно правильне
+{
+	system("cls");
+	Navigator();
+	View_Board();
+	int move;
+	cin >> move;
+	while (move > 9 || move < 1 || board[move - 1] != '-') //перевірка введеного числа
+	{
+		cout << "Enter move again (1-9)\n";
+		cin >> move;
+	}
+	return move;
+}
+void play()//игра
 {
 	
-	menu();
-	Navigator();
-	Create_board(board);
-	View_Board(board);
-	system("pause");
+	for (int i = 0; i < 5; i++)
+	{
+		int move = get_move();
+		get_move();
+		if (i % 2 == 0)
+		{
+			board[move - 1] = 'X';
+
+		}
+		else
+		{
+			board[move - 1] = 'O';
+
+		}
+	}
+		
 }
+
+
+
+void main()
+{
+	play();
+	system("Title TikTakToe");
+}
+
 void SetColor(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
-
 void menu()
 { 
 
@@ -67,5 +92,4 @@ void menu()
 	}
 	cout << char(188) << endl;
 	SetColor(10);
-	
 }
