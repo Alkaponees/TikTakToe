@@ -1,0 +1,71 @@
+#include<iostream>
+#include<Windows.h>
+#include<iomanip>
+#include<time.h>
+using namespace std;
+char board[9] = {};
+void menu();
+void SetColor(int color);
+void Create_board(char board[])
+{
+	for (int i = 0; i < 9; i++)
+	{
+		board[i] = '-';
+	}
+	
+}
+void View_Board(char board[])
+{
+	cout << "Game Desk" << endl;
+	cout << "|-" << board[6] << "-|-" << board[7] << "-|-" << board[8] << "-|" << endl;
+	cout << "|-" << board[3] << "-|-" << board[4] << "-|-" << board[5] << "-|" << endl;
+	cout << "|-" << board[0] << "-|-" << board[1] << "-|-" << board[2] << "-|" << endl;
+}
+void Navigator()
+{
+	cout << "Navigator" << endl;
+	cout << "|-6-|-7-|-8-|" << endl;
+	cout << "|-3-|-4-|-5-|" << endl;
+	cout << "|-0-|-1-|-2-|" << endl;
+}
+
+void main()
+{
+	
+	menu();
+	Navigator();
+	Create_board(board);
+	View_Board(board);
+	system("pause");
+}
+void SetColor(int color)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void menu()
+{ 
+
+	SetColor(3); cout << "\t\t\t\t" << char(201);
+	for (int i = 0; i < 40; i++)
+	{
+		cout << char(205);
+	}
+	SetColor(3); cout << char(187) << endl;
+	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
+	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
+	cout << "\t\t\t\t" << char(186);
+	SetColor(10); cout << "\t         TikTak\t\t\t ";
+	SetColor(3);
+	cout<< char(186) << endl;
+	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
+	cout << "\t\t\t\t" << char(186) << "\t\t\t\t\t " << char(186) << endl;
+	cout << "\t\t\t\t" << char(200);
+	for (int i = 0; i < 40; i++)
+	{
+		cout << char(205);
+	}
+	cout << char(188) << endl;
+	SetColor(10);
+	
+}
