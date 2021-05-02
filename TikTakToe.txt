@@ -64,7 +64,7 @@ int get_move()//введення числа та перевірка чи вон�
 char play()//игра
 {
 	int turn = 0;
-	while (!has_won('X') || !has_won('O') || turn < 9)
+	while (!has_won('X')&& !has_won('O') && turn < 9)
 	{
 		int move = get_move();
 		if (turn % 2 == 0)
@@ -88,10 +88,9 @@ char play()//игра
 		}
 		turn++;
 	}
+	
 	cout << "Draw" << endl;
 	return 'D';
-
-
 }
 
 
@@ -100,6 +99,7 @@ void main()
 {
 	play();
 	system("Title TikTakToe");
+	system("pause");
 }
 
 void SetColor(int color)
